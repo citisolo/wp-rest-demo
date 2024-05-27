@@ -1,0 +1,35 @@
+/* Styles for each todo card */
+.todo-card {
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+/* Style for completed todo items */
+.todo-card.done {
+    background: #f4f4f4;
+    color: #d1d1d1;
+    text-decoration: line-through;
+}
+
+/* Checkbox styling */
+.todo-card input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Title and Container Styles */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.todo-card-item-name {
+    color: #333;
+    text-align: center;
+}

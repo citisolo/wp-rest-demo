@@ -82,6 +82,19 @@ export default function Todo() {
         }
     }
 
+    const deleteTodo = async (id) => {
+        try {
+            const response = await restClient.delete(`/wp/v2/todo/${id}`);
+            console.log("Delete Todo Response:", response.data)
+            const updatedTodos = todos.filter((todo) => todo.id !== id);
+            setTodos(updatedTodos);
+        } catch (err) {
+            setError(err);
+            console.error("Delete Todo Error:", err);
+        }
+    
+    }
+
 
     useEffect(() => {
         getTodos();
@@ -92,7 +105,7 @@ export default function Todo() {
         <>
             <main className="container">
                 <h1>Todo List</h1>
-                <TodoCardList todos={todos} updateTodo={updateTodo} />
+                <TodoCardList todos={todos} updateTodo={updateTodo} deleteTodo={deleteTodo} />
                 <div styles={styles.form}>
                     <TextField id="standard-basic" label="New Todo" value={text} variant="standard" onChange={(e) => setText(e.target.value) } />
                     <Button variant="contained" onClick={() => addTodo()}>Add Todo</Button>

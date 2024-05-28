@@ -1,10 +1,13 @@
 
 import axios from 'axios';
 
-var DEBUG = true
+
+
+var DEBUG = false
 
 const hostUrl = "http://demo.local"
-const appPassword = ""
+const appPassword = process.env.NEXT_PUBLIC_WP_APP_PASSWORD
+
 const appUsername = "admin"
 const authHeader = btoa(`${appUsername}:${appPassword}`)
 

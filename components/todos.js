@@ -34,16 +34,21 @@ export default function Todo() {
         console.log("Text: ", text)
         try {
             const response = await restClient.post('/wp/v2/todo', {
+                status: 'publish',
+                title: {
+                    raw: text,
+                    rendererd: text,
+                },
                 acf: {
-                    task: todo.name,
-                    completed: todo.completed
+                    task: text,
+                    completed: false,
                 }
             });
             console.log("Add Todo Response:", response.data)
             const newTodo = {
                 id: response.data.id,
                 name: response.data.acf.task,
-                completed: response.data.acf.completed,
+                completed: response.data.acf.done,
             };
             setTodos([...todos, newTodo]);
         } catch (err) {

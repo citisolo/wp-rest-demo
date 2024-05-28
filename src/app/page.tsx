@@ -9,11 +9,7 @@ export default function Home() {
       <div className={styles.center}>
         <Todo />
       </div>
-
       <div className={styles.grid}>
-
-
-
       </div>
     </main>
   );

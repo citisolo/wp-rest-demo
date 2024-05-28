@@ -19,7 +19,7 @@ export default function Todo() {
                 return {
                     id: todo.id,
                     name: todo.acf.task,
-                    completed: todo.acf.completed,
+                    completed: todo.acf.done,
                 };
             });
             setTodos(tds);
@@ -32,8 +32,50 @@ export default function Todo() {
 
     const addTodo = async () => {
         console.log("Text: ", text)
-
+        try {
+            const response = await restClient.post('/wp/v2/todo', {
+                acf: {
+                    task: todo.name,
+                    completed: todo.completed
+                }
+            });
+            console.log("Add Todo Response:", response.data)
+            const newTodo = {
+                id: response.data.id,
+                name: response.data.acf.task,
+                completed: response.data.acf.completed,
+            };
+            setTodos([...todos, newTodo]);
+        } catch (err) {
+            setError(err);
+            console.error("Add Todo Error:", err);
+        }
     };
+
+    const updateTodo = async (id, completed) => {
+        try {
+            const response = await restClient.post(`/wp/v2/todo/${id}`, {
+                acf: {
+                    done: completed
+                }
+            });
+            console.log("Update Todo Response:", response.data)
+            const updatedTodos = todos.map((todo) => {
+                if (todo.id === id) {
+                    return {
+                        id: todo.id,
+                        name: todo.name,
+                        completed: completed
+                    };
+                }
+                return todo;
+            });
+            setTodos(updatedTodos);
+        } catch (err) {
+            setError(err);
+            console.error("Update Todo Error:", err);
+        }
+    }
 
 
     useEffect(() => {
@@ -45,7 +87,7 @@ export default function Todo() {
         <>
             <main className="container">
                 <h1>Todo List</h1>
-                <TodoCardList todos={todos} />
+                <TodoCardList todos={todos} updateTodo={updateTodo} />
                 <div styles={styles.form}>
                     <TextField id="standard-basic" label="New Todo" value={text} variant="standard" onChange={(e) => setText(e.target.value) } />
                     <Button variant="contained" onClick={() => addTodo()}>Add Todo</Button>

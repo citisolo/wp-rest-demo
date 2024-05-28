@@ -5,12 +5,12 @@ import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 
-function Todo({ todo }) {
+function Todo({ todo, updateTodo }) {
 
     const handleCheckboxChange = () => {
-    
+        updateTodo(todo.id, !todo.completed);
     };
-    
+    console.log(todo);
     const textStyle = {
         textDecoration: todo.completed ? 'line-through' : 'none'
     };

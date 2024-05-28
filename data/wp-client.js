@@ -4,7 +4,7 @@ import axios from 'axios';
 var DEBUG = true
 
 const hostUrl = "http://demo.local"
-const appPassword = "UkKH8OS0yb8LN0cRdTHC3W4E"
+const appPassword = ""
 const appUsername = "admin"
 const authHeader = btoa(`${appUsername}:${appPassword}`)
 
@@ -29,7 +29,6 @@ restClient.interceptors.response.use(response => {
 });
 
 restClient.interceptors.request.use(request => {
-    
     // add password to headers
     request.headers.Authorization = `Basic ${authHeader}`
     return request
